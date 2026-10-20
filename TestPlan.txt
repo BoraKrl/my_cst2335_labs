@@ -1,0 +1,73 @@
+============================================================
+CST2335 Week 4 Lab - Test Plan & Control Flow Evaluation
+============================================================
+
+1. CONTROL FLOW PATHWAY 1: Initial Launch (Empty Storage)
+   - Condition: 'username' and 'password' keys are not set in FlutterSecureStorage.
+   - Action: Launch application for the first time.
+   - Expected Result:
+     * _loadSavedCredentials() evaluates 'username != null' as FALSE.
+     * TextFields remain empty.
+     * SnackBar is NOT displayed.
+
+2. CONTROL FLOW PATHWAY 2: Saving Credentials (User Clicks 'Yes')
+   - Condition: User enters credentials, taps Login, and clicks "Yes".
+   - Action:
+     1. Type "student" in username and "pass123" in password.
+     2. Tap 'Login' button.
+     3. Click 'Yes' on the AlertDialog.
+   - Expected Result:
+     * AlertDialog closes.
+     * _storage.write() saves "student" and "pass123" securely.
+     * Re-launching application loads "student" and "pass123" into TextFields.
+     * SnackBar pops up showing "Previous login name and passwords have been loaded."
+
+3. CONTROL FLOW PATHWAY 3: Clearing Credentials (User Clicks 'No')
+   - Condition: User taps Login and clicks "No".
+   - Action:
+     1. Tap 'Login' button.
+     2. Click 'No' on the AlertDialog.
+   - Expected Result:
+     * AlertDialog closes.
+     * _storage.deleteAll() wipes saved keys.
+     * Re-launching application leaves TextFields blank.
+     * SnackBar is NOT displayed on app launch.
+
+4. CONTROL FLOW PATHWAY 4: Second Language Localization
+   - Condition: User switches language in app bar menu (or system locale set to French).
+   - Action: Select 'Français' from top right popup menu.
+   - Expected Result:
+     * All visible text changes to French ("Connexion", "Enregistrer les identifiants?", etc.).
+     * SnackBar and AlertDialog display messages in French.
+
+============================================================
+CST2335 Week 5 Lab - Test Plan & Control Flow Evaluation
+============================================================
+
+1. TEST CASE 1: Login & Navigation
+   - Action: Enter username "Bora" on login page and click Login button.
+   - Expected Result: Navigates to ProfilePage. SnackBar pops up showing "Welcome Back Bora".
+
+2. TEST CASE 2: Profile Data Auto-Save
+   - Action: Fill in First Name, Last Name, Phone Number, and Email Address fields. Close and relaunch app.
+   - Expected Result: Data is saved via Repository class and re-loaded into TextFields on startup.
+
+3. TEST CASE 3: Telephone Button Execution
+   - Action: Enter phone number "6135550199" and tap Phone icon button.
+   - Expected Result: Launches system phone dialer with tel:6135550199 pre-populated.
+
+4. TEST CASE 4: SMS Button Execution
+   - Action: Tap SMS icon button next to phone number.
+   - Expected Result: Launches text messaging app with sms:6135550199 pre-populated.
+
+5. TEST CASE 5: Email Button Execution
+   - Action: Enter "test@example.com" and tap Mail icon button.
+   - Expected Result: Launches default email app using mailto:test@example.com.
+
+6. TEST CASE 6: Unsupported URL Fallback
+   - Action: Tap an icon button on an emulator/device that lacks a phone or mail app handler.
+   - Expected Result: An AlertDialog displays stating the URL protocol is not supported on this device.
+
+7. TEST CASE 7: Second Language Localization
+   - Action: Select 'Français' from top menu on ProfilePage.
+   - Expected Result: Labels change to "Prénom", "Nom", "Numéro de téléphone", "Adresse courriel", and SnackBar displays "Bon retour".
