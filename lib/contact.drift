@@ -1,0 +1,9 @@
+CREATE TABLE ContactTable (
+    id INT NOT NULL PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    phone TEXT NOT NULL
+) AS Contact;
+
+saveContact: INSERT INTO ContactTable (name, phone) VALUES (:name, :phone);
+getAllContacts: SELECT * FROM ContactTable;
+deleteContact: DELETE FROM ContactTable WHERE id = :id;
